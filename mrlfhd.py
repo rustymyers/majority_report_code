@@ -20,8 +20,6 @@
 #
 # Version    : 1.0
 # --------------------------------------------------------------------------------------------------
-from lxml import etree
-import urllib3
 import re
 import feedparser
 from datetime import datetime, date
