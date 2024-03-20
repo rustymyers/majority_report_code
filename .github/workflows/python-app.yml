@@ -19,13 +19,13 @@ on:
         - debug
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -45,3 +45,4 @@ jobs:
       run: |
         python mrlfhd.py
     - uses: stefanzweifel/git-auto-commit-action@v4
+      # Commit the changes to the files
