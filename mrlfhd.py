@@ -10,13 +10,13 @@
 # Called By  :
 # Calls      :
 #
-# Author     : Rusty Myers <rzm102@psu.edu>
+# Author     : Rusty Myers <rustymyers@gmail.com>
 # Based Upon :
 #
 # Note       :
 #
 # Revisions  :
-#           %Y-%m-%d <rzm102>   Initial Version
+#           %Y-%m-%d <rustymyers>   Initial Version
 #
 # Version    : 1.0
 # --------------------------------------------------------------------------------------------------
@@ -117,5 +117,3 @@ for fun_half_entry in fun_halfs:
         new_shows = True
 if new_shows:
     writeJson("fun_half.json", fun_half_json)
-
-exit(0)
