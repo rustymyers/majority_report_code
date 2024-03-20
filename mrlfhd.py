@@ -104,6 +104,7 @@ print("Feed Link:", fun_half_json["feed_url"])
 
 # print(fun_half_json)
 fun_halfs = getentries()
+new_shows = False
 for fun_half_entry in fun_halfs:
     feed_date = fun_half_entry["published_date"]
     parsed_feed_date = datetime.strptime(feed_date, "%Y-%m-%dT%H:%M:%S%z")
@@ -116,6 +117,8 @@ for fun_half_entry in fun_halfs:
             update_entry = False
     if update_entry:
         fun_half_json["feed_links"].append(fun_half_entry)
-writeJson("fun_half.json", fun_half_json)
+        new_shows = True
+if new_shows:
+    writeJson("fun_half.json", fun_half_json)
 
 exit(0)
