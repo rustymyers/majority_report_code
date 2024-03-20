@@ -37,7 +37,7 @@ def writeJson(_path, _data: str):
     # Specify the file path where you want to write the JSON data
     # Open the file in write mode ('w') and use 'json.dump' to write the data
     with open(_path, "w") as json_file:
-        json.dump(_data, json_file)
+        json_file.write(json.dumps(_data, indent=4, sort_keys=True))
     print(f"JSON data has been written to {_path}")
 
 
@@ -63,9 +63,9 @@ def isItToday(check_date):
     return False
 
 
-def getentries():
+def getentries(_feed):
     entries = []
-    for entry in feed.entries:
+    for entry in _feed.entries:
         mr_live = re.findall(".*MR Live.*", entry.title)
         if len(mr_live):
             publish_date = entry.published
@@ -85,8 +85,6 @@ def getentries():
                     "summary": summary_text,
                 }
                 entries.append(entry_json)
-            else:
-                print("Not today")
     return entries
 
 
@@ -95,15 +93,14 @@ fun_half_json = readJson("fun_half.json")
 
 # Get videos from feed
 headers = {"User-Agent": "Mozilla"}
-url = "https://www.youtube.com/feeds/videos.xml?channel_id=UC-3jIAlnQmbbVMV6gR7K8aQ"
+channel_id = "UC-3jIAlnQmbbVMV6gR7K8aQ"
+url = "https://www.youtube.com/feeds/videos.xml?channel_id={0}".format(channel_id)
 feed = feedparser.parse(url)
 
 print("Feed Title:", fun_half_json["feed_name"])
 print("Feed Link:", fun_half_json["feed_url"])
 
-
-# print(fun_half_json)
-fun_halfs = getentries()
+fun_halfs = getentries(feed)
 new_shows = False
 for fun_half_entry in fun_halfs:
     feed_date = fun_half_entry["published_date"]
@@ -113,9 +110,9 @@ for fun_half_entry in fun_halfs:
         entry_date = entry["published_date"]
         parsed_entry_date = datetime.strptime(entry_date, "%Y-%m-%dT%H:%M:%S%z")
         if parsed_feed_date.date() == parsed_entry_date.date():
-            print("Added already")
             update_entry = False
     if update_entry:
+        print("Adding {0}".format(entry["title"]))
         fun_half_json["feed_links"].append(fun_half_entry)
         new_shows = True
 if new_shows:
