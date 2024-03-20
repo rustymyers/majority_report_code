@@ -4,20 +4,10 @@
 name: Update Majority Report Live json
 
 on:
+  workflow_dispatch:
   schedule:
      - cron:  '5 12 * * *'
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-
+     
 permissions:
   contents: write
 
