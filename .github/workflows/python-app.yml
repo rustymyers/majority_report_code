@@ -6,7 +6,7 @@ name: Update Majority Report Live json
 on:
   workflow_dispatch:
   schedule:
-    - cron: "35 16 * * *"
+    - cron: "15 16 * * *"
 
 permissions:
   contents: write
