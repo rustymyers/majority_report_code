@@ -73,10 +73,13 @@ def getentries(_feed):
                 video_link = entry.link
                 entry_title = entry.title
                 summary_text = entry.summary
-                url_regex = "Fun Half Link: (https:\/\/[-a-zA-Z0-9+&@#\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\/%=~_|])"
+                url_regex = "(FUN HALF).*=.(https:\/\/[-a-zA-Z0-9+&@#\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\/%=~_|])"
                 urls = re.findall(url_regex, summary_text)
                 if len(urls):
-                    fun_half = urls[0]
+                    fun_half = urls[2]
+                else:
+                    print("Failed to get Fun Half Link")
+                    exit(1)
                 entry_json = {
                     "link": video_link,
                     "fun_link": fun_half,
