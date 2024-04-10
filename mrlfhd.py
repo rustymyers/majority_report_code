@@ -76,7 +76,7 @@ def getentries(_feed):
                 url_regex = "(FUN HALF).*=.(https:\/\/[-a-zA-Z0-9+&@#\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\/%=~_|])"
                 urls = re.findall(url_regex, summary_text)
                 if len(urls):
-                    fun_half = urls[2]
+                    fun_half = urls[1]
                 else:
                     print("Failed to get Fun Half Link")
                     exit(1)
