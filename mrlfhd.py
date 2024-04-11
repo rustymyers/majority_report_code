@@ -74,8 +74,8 @@ def getentries(_feed):
                 entry_title = entry.title
                 summary_text = entry.summary
                 print(summary_text)
-                url_regex = "(?i)\bfun\b (?i)\bhalf\b.*(https:\/\/[-a-zA-Z0-9+&@#\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\/%=~_|])"
-                urls = re.findall(url_regex, summary_text)
+                url_regex = "[FfUNn].*(https:\/\/[-a-zA-Z0-9+&@#\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\/%=~_|])"
+                urls = re.findall(url_regex, summary_text, flags=re.IGNORECASE)
                 print(urls)
                 if len(urls):
                     fun_half = urls[0]
