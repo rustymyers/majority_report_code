@@ -117,7 +117,7 @@ for fun_half_entry in fun_halfs:
         if parsed_feed_date.date() == parsed_entry_date.date():
             update_entry = False
     if update_entry:
-        print("Adding {0}".format(entry["title"]))
+        print("Adding {0}".format(fun_half_entry["title"]))
         fun_half_json["feed_links"].append(fun_half_entry)
         new_shows = True
 if new_shows:
