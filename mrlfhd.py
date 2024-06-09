@@ -60,7 +60,7 @@ def isItToday(check_date):
     parsed_date = parsed_check_date.date()
     if parsed_date == today_date:
         return True
-    return False
+    return True
 
 
 def getentries(_feed):
@@ -69,27 +69,26 @@ def getentries(_feed):
         mr_live = re.findall(".*MR Live.*", entry.title)
         if len(mr_live):
             publish_date = entry.published
-            if isItToday(publish_date):
-                video_link = entry.link
-                entry_title = entry.title
-                summary_text = entry.summary
-                print(summary_text)
-                url_regex = "[FfUNn].*(https:\/\/[-a-zA-Z0-9+&@#\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\/%=~_|])"
-                urls = re.findall(url_regex, summary_text, flags=re.IGNORECASE)
-                print(urls)
-                if len(urls):
-                    fun_half = urls[0]
-                else:
-                    print("Failed to get Fun Half Link")
-                    exit(1)
-                entry_json = {
-                    "link": video_link,
-                    "fun_link": fun_half,
-                    "published_date": publish_date,
-                    "title": entry_title,
-                    "summary": summary_text,
-                }
-                entries.append(entry_json)
+            video_link = entry.link
+            entry_title = entry.title
+            summary_text = entry.summary
+            print(summary_text)
+            url_regex = "[FfUNn].*(https:\/\/[-a-zA-Z0-9+&@#\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\/%=~_|])"
+            urls = re.findall(url_regex, summary_text, flags=re.IGNORECASE)
+            print(urls)
+            if len(urls):
+                fun_half = urls[0]
+            else:
+                print("Failed to get Fun Half Link")
+                exit(1)
+            entry_json = {
+                "link": video_link,
+                "fun_link": fun_half,
+                "published_date": publish_date,
+                "title": entry_title,
+                "summary": summary_text,
+            }
+            entries.append(entry_json)
     return entries
 
 
