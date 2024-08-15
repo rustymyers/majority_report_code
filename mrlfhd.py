@@ -71,22 +71,23 @@ def getentries(_feed):
         # which ones to check with title. Disabled
         # if len(mr_live):
         publish_date = entry.published
+        # print(publish_date)
         video_link = entry.link
         entry_title = entry.title
         summary_text = entry.summary
-        # print(summary_text)
+        print(summary_text[:95])
+        url_regex = "[Ff][Uu][Nn] [hH][aA][lL][fF].*(https:\/\/[-a-zA-Z0-9+&@#\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\/%=~_|])"
         try:
-            url_regex = "[FfUNn].*(https:\/\/[-a-zA-Z0-9+&@#\/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#\/%=~_|])"
+            urls = re.findall(url_regex, summary_text, flags=re.IGNORECASE)
         except:
-            print("No Fun Half Link...skipping...")
+            print("Unable to regex. No links?")
             continue
-        urls = re.findall(url_regex, summary_text, flags=re.IGNORECASE)
-        # print(urls)
-        if len(urls):
-            fun_half = urls[0]
+        print(urls)
+        if not len(urls):
+            # print("No Fun Half Link")
+            continue
         else:
-            print("Failed to get Fun Half Link")
-            exit(1)
+            fun_half = urls[0]
         entry_json = {
             "link": video_link,
             "fun_link": fun_half,
@@ -109,7 +110,7 @@ feed = feedparser.parse(url)
 
 print("Feed Title:", fun_half_json["feed_name"])
 print("Feed Link:", fun_half_json["feed_url"])
-
+print(feed)
 fun_halfs = getentries(feed)
 new_shows = False
 for fun_half_entry in fun_halfs:
